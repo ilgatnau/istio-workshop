@@ -22,17 +22,16 @@ metadata:
   labels:
     app: tcp-echo
     service: tcp-echo
-  annotations:
-    cloud.google.com/l4-rbs: "enabled"
+#  annotations:
+#    cloud.google.com/l4-rbs: "enabled"
+#    cloud.google.com/neg: '{"exposed_ports": {"9000":{"name": "tcp"}}}'
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Cluster
   ports:
   - name: tcp
     port: 9000
-  - name: tcp-other
-    port: 9001
-  # Port 9002 is omitted intentionally for testing the pass through filter chain.
+    protocol: TCP
   selector:
     app: tcp-echo
 ---
