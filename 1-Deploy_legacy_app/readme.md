@@ -1,6 +1,6 @@
 Exercise 1
 
-Objective: Deploy the worloads in this folder in your own namespace.
+**Objective: Deploy the worloads in this folder in your own namespace.**
 
 Hints:
 * Use your team name as the name of your namespace: <team_name>_ns

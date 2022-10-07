@@ -1,6 +1,6 @@
 Exercise 3
 
-Objective: Configure the app mesh (and remove previous ELBs)
+**Objective: Configure the app mesh** (and remove previous ELBs)
 
 Hints:
 * There has been introduced some mistakes in the files in this folder, deploy as-is and troubleshoot.
