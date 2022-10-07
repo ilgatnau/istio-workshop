@@ -11,7 +11,7 @@ spec:
       name: tcp
       protocol: TCP
     hosts:
-    - "*"
+    - "tcp.test.com"
   - port:
        number: 80
        name: http
@@ -21,9 +21,9 @@ spec:
   - port:
        number: 443
        name: https
-       protocol: HTTPS
+       protocol: HTTP
     hosts:
     - "http.test.com"
     tls:
       mode: SIMPLE
-      credentialName: tls-keys # must be the same as secret
+      credentialName: certifcates
