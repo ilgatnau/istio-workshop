@@ -4,7 +4,7 @@ Exercise 3
 
 Hints:
 * There has been introduced some mistakes in the files in this folder, deploy as-is and troubleshoot.
-* How to resolve a fake DNS name without changing /etc/hosts file: `curl -Lv -HHost:http.test.com --resolve http.test.com:80:<ingress_ip>`
+* How to resolve a fake DNS name without changing /etc/hosts file: `curl -Lv --resolve:$HOSTNAME:$PORT:$IP http://$HOSTNAME`
 * Check los for incorrect routes: `kubectl logs -l app=istio-ingressgateway -c istio-proxy -n <gateway_ns>`
 * Use `istio analyze` to understand the mesh config
 
