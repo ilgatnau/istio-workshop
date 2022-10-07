@@ -1,5 +1,12 @@
+Exercise 3
 
-Useful (but not always known) Istio traffic management facts (https://istio.io/latest/docs/ops/best-practices/traffic-management/):
+Objective: Configure the app mesh (and remove previous ELBs)
+
+Hints:
+* There has been introduced some mistakes in the files in this folder, deploy as-is and troubleshoot.
+
+
+Some useful (but not always known) Istio traffic management facts (https://istio.io/latest/docs/ops/best-practices/traffic-management/):
 * A VirtualService can only be fragmented this way if it is bound to a gateway. Host merging is not supported in sidecars.
 * Unlike virtual service merging, destination rule merging works in both sidecars and gateways.
 * Order in which objects are created matters in some case:
