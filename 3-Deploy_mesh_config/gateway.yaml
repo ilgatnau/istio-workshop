@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: ingress-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 31400
+      name: tcp
+      protocol: TCP
+    hosts:
+    - "*"
+  - port:
+       number: 80
+       name: http
+       protocol: HTTP
+    hosts:
+    - "http.test.com"

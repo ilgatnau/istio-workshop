@@ -5,6 +5,8 @@ metadata:
 spec:
   hosts:
   - "http.test.com"
+  exportTo:
+  - "."
   gateways:
   - ingress-gateway
   http:
