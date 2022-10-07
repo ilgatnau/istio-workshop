@@ -6,6 +6,7 @@ Useful (but not always known) Istio traffic management facts (https://istio.io/l
 ** TCP
 ** Rutes to subsets
 
-How to resolve a fake DNS name without changing /etc/hosts file:
 
-`curl -Lv -HHost:http.test.com --resolve http.test.com:80:<ingress_ip>`
+Tips:
+* How to resolve a fake DNS name without changing /etc/hosts file: `curl -Lv -HHost:http.test.com --resolve http.test.com:80:<ingress_ip>`
+* Check los for incorrect routes: `kubectl logs -l app=istio-ingressgateway -c istio-proxy -n <gateway_ns>`

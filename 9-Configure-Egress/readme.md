@@ -1,0 +1,1 @@
+kubectl exec $SOURCE_POD -c sleep -- curl -sS http://httpbin.org/headers

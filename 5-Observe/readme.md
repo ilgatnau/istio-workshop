@@ -7,6 +7,6 @@ spec:
     accessLogFile: /dev/stdout
 ```
 
-Ceck logs:
+Check access logs:
 
 `kubectl logs -l app=httpbin -c istio-proxy -n <app_namespace>`
