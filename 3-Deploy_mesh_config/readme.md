@@ -7,7 +7,7 @@ Hints:
 
 
 Some useful (but not always known) Istio traffic management facts (https://istio.io/latest/docs/ops/best-practices/traffic-management/):
-* A VirtualService can only be fragmented this way if it is bound to a gateway. Host merging is not supported in sidecars.
+* A VirtualService can only be fragmented if it is bound to a gateway. Host merging is not supported in sidecars.
 * Unlike virtual service merging, destination rule merging works in both sidecars and gateways.
 * Order in which objects are created matters in some case:
 ** TCP
@@ -17,3 +17,8 @@ Some useful (but not always known) Istio traffic management facts (https://istio
 Tips:
 * How to resolve a fake DNS name without changing /etc/hosts file: `curl -Lv -HHost:http.test.com --resolve http.test.com:80:<ingress_ip>`
 * Check los for incorrect routes: `kubectl logs -l app=istio-ingressgateway -c istio-proxy -n <gateway_ns>`
+
+
+Bonus:
+* Deploy a second instance of the workloads
+* Configure v1 and v2 subsets and 80/20 traffic splitting rule
