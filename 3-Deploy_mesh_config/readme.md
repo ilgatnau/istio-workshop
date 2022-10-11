@@ -3,6 +3,7 @@ Exercise 3
 **Objective: Expose the app through the ingress gateway**
 
 Hints:
+* Deploy the VS in the app namespace, the Gateway will need to be deployed in the Gateway Namespace.
 * There has been introduced some mistakes in the files in this folder, deploy as-is and troubleshoot.
 * How to resolve a fake DNS name without changing /etc/hosts file: `curl -Lv --resolve:$HOSTNAME:$PORT:$IP http://$HOSTNAME`
 * Check los for incorrect routes: `kubectl logs -l app=istio-ingressgateway -c istio-proxy -n <gateway_ns>`
