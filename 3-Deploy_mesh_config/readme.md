@@ -1,6 +1,14 @@
-Exercise 3
+# Exercise 3
 
 **Objective: Expose the app through the ingress gateway**
+
+# Context 
+
+Previously we had our workload exposed though 2 different Load Balancer types, none of those was secured. In this exercise we will remove those entry points and instead we will route any external request through our recently created Ingress Gateway to the workloads. We do not intend to secure these endpoints yet but just enable basic routing capabilities.
+
+Use the provided sample resources, however bear in mind these may not be functional and you'll need to find ut what is wrong with them to make the mesh work.
+
+![Mesh config](./istio-workshop-mesh.png)
 
 Hints:
 * Deploy the VS in the app namespace, the Gateway will need to be deployed in the Gateway Namespace.

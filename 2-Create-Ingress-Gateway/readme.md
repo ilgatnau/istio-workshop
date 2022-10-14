@@ -1,6 +1,8 @@
-Exercise 2
+# Exercise 2
 
 **Objective: Create an Ingress Gateway**
+
+# Context 
 
 An Ingress Gateway is the most common pattern to expose multiple workloads (https://microservices.io/patterns/apigateway.html) externally using a single entry point can then be secured and apply advanced network capabilities.
 
@@ -13,4 +15,4 @@ Hints:
 * Create the ingress gateway on its own namespace: <team_name>-ingress-ns
 * We are using Istio and not ASM, hence intio-autoinjection label still required
 
-Bonus: Escale Ingress to 1 replica to save resources in the workshop
+# Bonus: Escale down your to minimum the Ingress Gateway to save resources in the workshop
