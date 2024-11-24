@@ -10,6 +10,21 @@ An Ingress Gateway is the most common pattern to expose multiple workloads (http
 
 Istio provide it's own Operator to install an Ingress Gateway, however for this exercise we will follow a best practice provided by Google 
 
+
+in new terminal run 
+> minikube tunnel
+
+Then install Ingress Gateway 
+
+```
+kubectl create ns istio-ingress
+
+kubectl apply -f ./2-Create-Ingress-Gateway/ingress-gateway-manifests.yaml -n istio-ingress
+```
+
+New message should appear in the terminal where the tunnel was created
+> Starting tunnel for service istio-ingressgateway
+
 Hints: 
 * Follow instructions here https://cloud.google.com/service-mesh/docs/gateways#deploy_gateways 
 * Create the ingress gateway on its own namespace: <team_name>-ingress-ns

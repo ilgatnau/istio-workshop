@@ -7,7 +7,7 @@ spec:
   - "http.test.com"
   exportTo:
   - "."
-  - "istio-system"
+  - "istio-ingress"
   gateways:
   - ingress-gateway
   http:
