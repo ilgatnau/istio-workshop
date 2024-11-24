@@ -14,7 +14,7 @@ Create ngnx for minikube ingress (https://kubernetes.io/docs/tasks/access-applic
 > minikube addons enable ingress
 
 Expose httpbin
-> kubectl expose deployment httpbin --type=NodePort --port=8080 -n demo
+> kubectl expose deployment httpbin --type=NodePort --port=80 -n demo
 
 > minikube service httpbin --url -n demo
 

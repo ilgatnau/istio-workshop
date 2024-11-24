@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: istio-egressgateway
+spec:
+  selector:
+    istio: egressgateway
+  servers:
+  - port:
+      number: 443
+      name: tls
+      protocol: TLS
+    hosts:
+    - edition.cnn.com
+    tls:
+      mode: PASSTHROUGH
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - edition.cnn.com
