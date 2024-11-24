@@ -10,6 +10,14 @@ Even though the L7 Ingress resource could be secured with TLS support it is not 
 
 Note the sleep workload is just intended for testing purposes within the cluster.
 
+Create ngnx for minikube ingress (https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/)
+> minikube addons enable ingress
+
+Expose httpbin
+> kubectl expose deployment httpbin --type=NodePort --port=8080 -n demo
+
+> minikube service httpbin --url -n demo
+
 ![Legacy App](./istio-workshop-legacy.png)
 
 Hints:

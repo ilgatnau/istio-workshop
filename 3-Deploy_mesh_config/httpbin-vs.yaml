@@ -7,11 +7,12 @@ spec:
   - "http.test.com"
   exportTo:
   - "."
+  - "istio-system"
   gateways:
   - ingress-gateway
   http:
   - route:
     - destination:
-        host: httpbin
+        host: httpbin-ilb-svc
         port:
-          number: 8000
+          number: 80

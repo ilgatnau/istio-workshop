@@ -15,25 +15,25 @@
 ################################################################################
 # tcp-echo service
 ################################################################################
-apiVersion: v1
-kind: Service
-metadata:
-  name: tcp-echo
-  labels:
-    app: tcp-echo
-    service: tcp-echo
-#  annotations:
-#    cloud.google.com/l4-rbs: "enabled"
-#    cloud.google.com/neg: '{"exposed_ports": {"9000":{"name": "tcp"}}}'
-spec:
-  type: LoadBalancer
-  externalTrafficPolicy: Cluster
-  ports:
-  - name: tcp
-    port: 9000
-    protocol: TCP
-  selector:
-    app: tcp-echo
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: tcp-echo
+#   labels:
+#     app: tcp-echo
+#     service: tcp-echo
+# #  annotations:
+# #    cloud.google.com/l4-rbs: "enabled"
+# #    cloud.google.com/neg: '{"exposed_ports": {"9000":{"name": "tcp"}}}'
+# spec:
+#   type: LoadBalancer
+#   externalTrafficPolicy: Cluster
+#   ports:
+#   - name: tcp
+#     port: 9000
+#     protocol: TCP
+#   selector:
+#     app: tcp-echo
 ---
 apiVersion: apps/v1
 kind: Deployment
