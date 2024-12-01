@@ -1,0 +1,21 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  name: egressgateway-operator
+  namespace: radoscis-egress
+  annotations:
+    config.kubernetes.io/local-config: "true"
+spec:
+  profile: empty
+  revision: default
+  components:
+    egressGateways:
+    - name: istio-egressgateway
+      namespace: radoscis-egress
+      enabled: true
+      label:        
+        istio: radoscis-egressgateway
+  values:
+    gateways:
+      istio-egressgateway:
+        injectionTemplate: gateway        
