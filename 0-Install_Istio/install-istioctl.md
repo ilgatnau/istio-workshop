@@ -1,3 +1,6 @@
+# References
+https://waytoeasylearn.com/learn/book-details-sample-application/
+
 # Install
 
 ## System setup
@@ -51,7 +54,8 @@ Install Minikube
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
 sudo dpkg -i minikube_latest_amd64.deb
 minikube start --profile istio --memory=8192 --cpus=2 --kubernetes-version=v1.26.1
-minikube addons enable ingress --profile istio
+# minikube addons enable ingress --profile istio
+minikube config set profile istio
 ```
 
 ## Install Istio
