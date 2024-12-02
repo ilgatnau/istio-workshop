@@ -1,0 +1,11 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: google-apis-dst
+  namespace: istio-system
+spec:
+  exportTo:
+  - '*'
+  host: istio-egressgateway.istio-system.svc.cluster.local
+  subset:
+  - name: googleapis-passthrough
