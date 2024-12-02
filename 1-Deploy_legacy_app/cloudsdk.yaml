@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cloudsdk
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudsdk
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudsdk      
+  template:
+    metadata:
+      labels:
+        app: cloudsdk        
+    spec:
+      serviceAccountName: cloudsdk
+      containers:
+      - image: docker.io/google/cloud-sdk:latest
+        imagePullPolicy: IfNotPresent
+        name: cloudsdk
+        command:
+        - sleep
+        - infinity

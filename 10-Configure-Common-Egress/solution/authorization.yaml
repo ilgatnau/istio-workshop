@@ -1,0 +1,15 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata: 
+  name: google-apis-auth
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      app: istio-egressgateway
+      istio: egressgateway
+  action: ALLOW
+  rules:
+  - when:
+    - key: connection.sni
+      values: ["*.googleapis.com"]
