@@ -5,10 +5,10 @@ metadata:
   namespace: istio-system
 spec:
   exportTo:
-  - "*"
+  - '*'
   hosts:
   - "*.googleapis.com"
-  gateway:
+  gateways:
   - mesh
   - google-apis-gw
   tls:
@@ -27,7 +27,7 @@ spec:
   - match:
     - gateways:
       - google-apis-gw
-      port: 443
+      port: 8443
       sniHosts:
       - "*.googleapis.com"
     route:
