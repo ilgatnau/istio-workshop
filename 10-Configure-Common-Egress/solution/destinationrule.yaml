@@ -7,5 +7,5 @@ spec:
   exportTo:
   - '*'
   host: istio-egressgateway.istio-system.svc.cluster.local
-  subset:
+  subsets:
   - name: googleapis-passthrough

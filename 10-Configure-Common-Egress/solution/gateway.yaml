@@ -9,10 +9,10 @@ spec:
     istio: egressgateway
   servers:
   - port:
-      number: 443
+      number: 8443 # Container port Number !!!!
       name: tls
       protocol: TLS
     hosts:
-    - "isito-system/*.googleapis.com"
+    - "*.googleapis.com"
     tls:
       mode: PASSTHROUGH

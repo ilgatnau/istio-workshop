@@ -5,7 +5,9 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-  - "*.googleapis.com"  
+  - "*.googleapis.com"
+  endpoints:
+   - address: "apis.googleapis.com"
   ports:
   - name: tls
     number: 443
