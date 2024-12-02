@@ -1,0 +1,28 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: httpbin
+  namespace: radoscis
+spec:
+  hosts:
+  - "http.test.com"
+  - "tcp.test.com"
+  exportTo:
+  - "."
+  - "istio-system"
+  gateways:
+  - ingress-gateway
+  http:
+  - route:
+    - destination:
+        host: httpbin-ilb-svc
+        port:
+          number: 80
+  tcp:
+  - match:
+    - port: 31400
+    route:
+    - destination:
+        host: tcp-echo
+        port:
+          number: 9000
