@@ -6,6 +6,7 @@ metadata:
 spec:
   hosts:
   - "http.test.com"
+  - "tcp.test.com"
   exportTo:
   - "."
   - "istio-system"
@@ -17,3 +18,11 @@ spec:
         host: httpbin-ilb-svc
         port:
           number: 80
+  tcp:
+  - match:
+    - port: 31400
+    route:
+    - destination:
+        host: tcp-echo
+        port:
+          number: 9000
