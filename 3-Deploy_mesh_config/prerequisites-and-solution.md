@@ -13,6 +13,13 @@ kubectl delete svc tcp-echo httpbin-ilb-svc
 kubectl -n ${APP_NS} apply -f resources
 ```
 
+# Task - Create Gateway and VirtualService
+
+VirtualService that direct to following services:
+
+- httpbin-ilb-svc service accessed by HTTP
+- tcp-echo service accessed by port 9090
+
 # Check connectivity HTTP
 ```bash
 minikube tunnel
