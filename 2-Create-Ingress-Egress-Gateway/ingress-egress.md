@@ -1,27 +1,32 @@
-?(@.metadata.name=~/^test$/)]
-
 # References
 [Using Istio Revisions](https://istio.io/latest/blog/2021/revision-tags/)
 [Istio Sidecar Injection](https://istio.io/latest/docs/setup/additional-setup/sidecar-injection/)
 [Install Ingress](https://istio.io/latest/docs/setup/additional-setup/gateway/)
+
 ```bash
 ISTIO_REV=$(kubectl -n istio-system get cm istio -o jsonpath='{.metadata.labels.istio\.io\/rev}')
-kubectl create ns radoscis-ingress
-kubectl create ns radoscis-egress
-kubectl label namespace radoscis-ingress istio.io/rev=$ISTIO_REV
-kubectl label namespace radoscis-egress istio.io/rev=$ISTIO_REV
-kubectl label namespace radoscis istio.io/rev=$ISTIO_REV
-kubectl -n radoscis delete pods --all
-kubectl -n radoscis get pods
+ING_NS="demo-ingress"
+EGRESS_NS="demo-egress"
+APP_NS="demo"
+kubectl create ns ${ING_NS}
+kubectl create ns ${EGRESS_NS}
+kubectl label namespace ${ING_NS} istio.io/rev=$ISTIO_REV
+kubectl label namespace ${EGRESS_NS} istio.io/rev=$ISTIO_REV
+kubectl label namespace ${APP_NS} istio.io/rev=$ISTIO_REV
+kubectl -n ${APP_NS} delete pods --all
+kubectl -n ${APP_NS} get pods
 
-# Edit istio-ingress-deployment
-# Set Your namespace and selctor label
+# Set correct namespace and label selectors in istio-ingress-operator.yaml
+# Generate ingress manifest
 istioctl manifest generate --filename istio-ingress-operator.yaml --cluster-specific > istio-ingress-deployment.yaml
+
+# Set correct namespace label selectors in istio-egress-operator.yaml
+# Generate egress manifest
 istioctl manifest generate --filename istio-egress-operator.yaml --cluster-specific > istio-egress-deployment.yaml
 
 kubectl apply -f istio-ingress-deployment.yaml
 kubectl apply -f istio-egress-deployment.yaml
 
-kubectl get pods -n radoscis-ingress
-kubectl get pods -n radoscis-egress
+kubectl get pods -n ${ING_NS}
+kubectl get pods -n ${EGRESS_NS}
 ```

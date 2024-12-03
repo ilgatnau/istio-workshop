@@ -2,7 +2,7 @@ apiVersion: security.istio.io/v1
 kind: RequestAuthentication
 metadata:
   name: jwt-istio-testing
-  namespace: radoscis
+  namespace: demo
 spec:
   selector:
     matchLabels:

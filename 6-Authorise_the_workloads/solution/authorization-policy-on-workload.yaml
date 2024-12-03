@@ -2,7 +2,7 @@ apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
   name: jwt-require-valid-token
-  namespace: radoscis
+  namespace: demo
 spec:
   selector:
     matchLabels:
@@ -20,7 +20,7 @@ apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
   name: allow-tcp-port
-  namespace: radoscis
+  namespace: demo
 spec:
   selector:
     matchLabels:

@@ -5,34 +5,33 @@
 
 ```bash
 # Remove old service definitions
-kubectl config set-context --current --namespace radoscis
+APP_NS=demo
+kubectl config set-context --current --namespace ${APP_NS}
 kubectl delete ing httpbin-ilb-ingress
 kubectl delete svc tcp-echo httpbin-ilb-svc
 
-kubectl -n radoscis apply -f resources
-```
-# Apply Your solution
-```bash
-kubectl apply -f gateway.yaml
-kubectl apply -f httpbin-vs.yaml
+kubectl -n ${APP_NS} apply -f resources
 ```
 
 # Check connectivity HTTP
 ```bash
 minikube tunnel
-NS_NAME="radoscis"
+NS_NAME="demo"
+ING_NS="demo-ingress"
+EGRESS_NS="demo-egress"
+APP_NS="demo"
+ING_SELECTOR="istio=demo-ingressgateway"
 # App istio-proxy logs
 kubectl -n $NS_NAME logs -c istio-proxy -f $(kubectl -n $NS_NAME get pod --selector app=httpbin -o jsonpath='{.items[0].metadata.name}')
 # Istio Ingress logs
-kubectl -n istio-system logs -f $(kubectl -n istio-system get pod --selector app=istio-ingressgateway -o jsonpath='{.items[0].metadata.name}')
+kubectl -n ${ING_NS} logs -f $(kubectl -n ${ING_NS} get pod --selector ${ING_SELECTOR} -o jsonpath='{.items[0].metadata.name}')
 
 export INGRESS_NAME=istio-ingressgateway
-export INGRESS_NS=istio-system
 
-export INGRESS_HOST=$(kubectl -n "$INGRESS_NS" get service "$INGRESS_NAME" -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-export INGRESS_PORT=$(kubectl -n "$INGRESS_NS" get service "$INGRESS_NAME" -o jsonpath='{.spec.ports[?(@.name=="http2")].port}')
-export SECURE_INGRESS_PORT=$(kubectl -n "$INGRESS_NS" get service "$INGRESS_NAME" -o jsonpath='{.spec.ports[?(@.name=="https")].port}')
-export TCP_INGRESS_PORT=$(kubectl -n "$INGRESS_NS" get service "$INGRESS_NAME" -o jsonpath='{.spec.ports[?(@.name=="tcp")].port}')
+export INGRESS_HOST=$(kubectl -n "$ING_NS" get service "$INGRESS_NAME" -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+export INGRESS_PORT=$(kubectl -n "$ING_NS" get service "$INGRESS_NAME" -o jsonpath='{.spec.ports[?(@.name=="http2")].port}')
+export SECURE_INGRESS_PORT=$(kubectl -n "$ING_NS" get service "$INGRESS_NAME" -o jsonpath='{.spec.ports[?(@.name=="https")].port}')
+export TCP_INGRESS_PORT=$(kubectl -n "$ING_NS" get service "$INGRESS_NAME" -o jsonpath='{.spec.ports[?(@.name=="tcp")].port}')
 
 HOST_NAME="http.test.com"
 curl -sS -v -k --resolve ${HOST_NAME}:80:${INGRESS_HOST} http://${HOST_NAME}/headers
@@ -43,17 +42,17 @@ curl -sS -v -k --resolve ${HOST_NAME}:80:${INGRESS_HOST} http://${HOST_NAME}/hea
 ```bash
 minikube tunnel
 # Tail Logs
-NS_NAME="radoscis"
+NS_NAME="demo"
 # App istio-proxy logs
 kubectl -n $NS_NAME logs -c istio-proxy -f $(kubectl -n $NS_NAME get pod --selector app=tcp-echo -o jsonpath='{.items[0].metadata.name}')
 # Istio Ingress logs
 kubectl -n istio-system logs -f $(kubectl -n istio-system get pod --selector app=istio-ingressgateway -o jsonpath='{.items[0].metadata.name}')
 
-export INGRESS_NAME=istio-ingressgateway
-export INGRESS_NS=istio-system
+INGRESS_NAME=istio-ingressgateway
+ING_NS="demo-ingress"
 
-export INGRESS_HOST=$(kubectl -n "$INGRESS_NS" get service "$INGRESS_NAME" -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-export INGRESS_PORT=$(kubectl -n "$INGRESS_NS" get service "$INGRESS_NAME" -o jsonpath='{.spec.ports[?(@.name=="tcp")].port}')
+INGRESS_HOST=$(kubectl -n "$ING_NS" get service "$INGRESS_NAME" -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+INGRESS_PORT=$(kubectl -n "$ING_NS" get service "$INGRESS_NAME" -o jsonpath='{.spec.ports[?(@.name=="tcp")].port}')
 
 HOST_NAME="tcp.test.com"
 echo "Test Port $INGRESS_PORT" | nc $INGRESS_HOST $INGRESS_PORT

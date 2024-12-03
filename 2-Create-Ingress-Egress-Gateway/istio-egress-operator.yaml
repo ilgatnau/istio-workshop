@@ -2,7 +2,7 @@ apiVersion: install.istio.io/v1alpha1
 kind: IstioOperator
 metadata:
   name: egressgateway-operator
-  namespace: radoscis-egress
+  namespace: demo-egress
   annotations:
     config.kubernetes.io/local-config: "true"
 spec:
@@ -11,10 +11,10 @@ spec:
   components:
     egressGateways:
     - name: istio-egressgateway
-      namespace: radoscis-egress
+      namespace: demo-egress
       enabled: true
       label:        
-        istio: radoscis-egressgateway
+        istio: demo-egressgateway
   values:
     gateways:
       istio-egressgateway:

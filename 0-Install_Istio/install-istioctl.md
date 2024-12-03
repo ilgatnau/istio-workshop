@@ -53,9 +53,9 @@ Install Minikube
 ```bash
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
 sudo dpkg -i minikube_latest_amd64.deb
-minikube start --profile istio --memory=8192 --cpus=2 --kubernetes-version=v1.26.1
+minikube start --profile istiok8s --memory=8192 --cpus=2 --kubernetes-version=v1.26.1
 # minikube addons enable ingress --profile istio
-minikube config set profile istio
+minikube config set profile istiok8s
 ```
 
 ## Install Istio
@@ -70,7 +70,7 @@ echo "export PATH=\$PATH:$PWD/bin" >> ~/.bashrc
 export PATH=$PATH:/home/radek/install/istio-1.24.0/bin
 ```
 
-Istioctl installation method profile
+Istioctl installation method profile:
 - default: enables components according to the default settings of the IstioOperator API. This profile is recommended for production deployments and for primary clusters in a multicluster mesh.
 - demo: configuration designed to showcase Istio functionality with modest resource requirements. It is suitable to run the Bookinfo application and associated tasks.
 - minimal: same as the default profile, but only the control plane components are installed. This allows you to configure the control plane and data plane components (e.g., gateways) using separate profiles.
@@ -79,18 +79,15 @@ Istioctl installation method profile
 - preview: the preview profile contains features that are experimental. This is intended to explore new features coming to Istio. Stability, security, and performance are not guaranteed - use at your own risk.
 - ambient: the ambient profile is designed to help you get started with [ambient mode](https://istio.io/latest/docs/ambient/)
 
-eg. compare profiles with customization
+Eg. compare profiles with customization
 ```bash
-istioctl manifest generate --set profile=demo > generated-manifest.yaml
+istioctl manifest generate --set profile=minimal > generated-manifest.yaml
 istioctl manifest generate -f  samples/bookinfo/demo-profile-no-gateways.yaml > generated-manifest-no-gateways.yaml
 dyff between generated-manifest.yaml generated-manifest-no-gateways.yaml > generated-manifests-diff.yaml
 ```
 
-Install demo profile
+Install minimal profile
 ```bash
-istioctl install --set profile=demo
+istioctl install --set profile=minimal
 k -n istio-system get cm istio -o jsonpath='{.data.mesh}'
 ```
-
-$ minikube tunnel
-$ minikube tunnel --cleanup

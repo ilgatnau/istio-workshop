@@ -20,7 +20,7 @@ spec:
       - "*.googleapis.com"
     route:
     - destination:
-        host: istio-egressgateway.istio-system.svc.cluster.local
+        host: istio-egressgateway.demo-egress.svc.cluster.local
         subset: googleapis-passthrough
         port:
           number: 443

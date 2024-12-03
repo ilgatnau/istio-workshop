@@ -10,12 +10,12 @@ metadata:
     app.kubernetes.io/version: 1.24.0
     helm.sh/chart: istio-ingress-1.24.0
     install.operator.istio.io/owning-resource: unknown
-    istio: radoscis-ingressgateway
+    istio: demo-ingressgateway
     istio.io/rev: default
     operator.istio.io/component: IngressGateways
     release: istio
   name: istio-ingressgateway-service-account
-  namespace: radoscis-ingress
+  namespace: demo-ingress
 
 ---
 apiVersion: apps/v1
@@ -30,17 +30,17 @@ metadata:
     app.kubernetes.io/version: 1.24.0
     helm.sh/chart: istio-ingress-1.24.0
     install.operator.istio.io/owning-resource: unknown
-    istio: radoscis-ingressgateway
+    istio: demo-ingressgateway
     istio.io/rev: default
     operator.istio.io/component: IngressGateways
     release: istio
   name: istio-ingressgateway
-  namespace: radoscis-ingress
+  namespace: demo-ingress
 spec:
   selector:
     matchLabels:
       app: istio-ingressgateway
-      istio: radoscis-ingressgateway
+      istio: demo-ingressgateway
   strategy:
     rollingUpdate:
       maxSurge: 100%
@@ -62,7 +62,7 @@ spec:
         app.kubernetes.io/version: 1.24.0
         helm.sh/chart: istio-ingress-1.24.0
         install.operator.istio.io/owning-resource: unknown
-        istio: radoscis-ingressgateway
+        istio: demo-ingressgateway
         operator.istio.io/component: IngressGateways
         service.istio.io/canonical-name: istio-ingressgateway
         service.istio.io/canonical-revision: latest
@@ -79,11 +79,13 @@ spec:
         image: auto
         name: istio-proxy
         ports:
-        - containerPort: 15021
+        - containerPort: 9090
           protocol: TCP
         - containerPort: 8080
           protocol: TCP
         - containerPort: 8443
+          protocol: TCP
+        - containerPort: 15021
           protocol: TCP
         - containerPort: 15090
           name: http-envoy-prom
@@ -137,18 +139,18 @@ metadata:
     app.kubernetes.io/version: 1.24.0
     helm.sh/chart: istio-ingress-1.24.0
     install.operator.istio.io/owning-resource: unknown
-    istio: radoscis-ingressgateway
+    istio: demo-ingressgateway
     istio.io/rev: default
     operator.istio.io/component: IngressGateways
     release: istio
   name: istio-ingressgateway
-  namespace: radoscis-ingress
+  namespace: demo-ingress
 spec:
   minAvailable: 1
   selector:
     matchLabels:
       app: istio-ingressgateway
-      istio: radoscis-ingressgateway
+      istio: demo-ingressgateway
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -166,7 +168,7 @@ metadata:
     operator.istio.io/component: IngressGateways
     release: istio
   name: istio-ingressgateway-sds
-  namespace: radoscis-ingress
+  namespace: demo-ingress
 rules:
 - apiGroups:
   - ""
@@ -193,7 +195,7 @@ metadata:
     operator.istio.io/component: IngressGateways
     release: istio
   name: istio-ingressgateway-sds
-  namespace: radoscis-ingress
+  namespace: demo-ingress
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -215,12 +217,12 @@ metadata:
     app.kubernetes.io/version: 1.24.0
     helm.sh/chart: istio-ingress-1.24.0
     install.operator.istio.io/owning-resource: unknown
-    istio: radoscis-ingressgateway
+    istio: demo-ingressgateway
     istio.io/rev: default
     operator.istio.io/component: IngressGateways
     release: istio
   name: istio-ingressgateway
-  namespace: radoscis-ingress
+  namespace: demo-ingress
 spec:
   maxReplicas: 5
   metrics:
@@ -250,18 +252,18 @@ metadata:
     app.kubernetes.io/version: 1.24.0
     helm.sh/chart: istio-ingress-1.24.0
     install.operator.istio.io/owning-resource: unknown
-    istio: radoscis-ingressgateway
+    istio: demo-ingressgateway
     istio.io/rev: default
     operator.istio.io/component: IngressGateways
     release: istio
   name: istio-ingressgateway
-  namespace: radoscis-ingress
+  namespace: demo-ingress
 spec:
   ports:
-  - name: status-port
-    port: 15021
+  - name: tcp
+    port: 9090
     protocol: TCP
-    targetPort: 15021
+    targetPort: 0
   - name: http2
     port: 80
     protocol: TCP
@@ -270,9 +272,13 @@ spec:
     port: 443
     protocol: TCP
     targetPort: 8443
+  - name: status-port
+    port: 15021
+    protocol: TCP
+    targetPort: 15021
   selector:
     app: istio-ingressgateway
-    istio: radoscis-ingressgateway
+    istio: demo-ingressgateway
   type: LoadBalancer
 
 ---

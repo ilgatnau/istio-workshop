@@ -10,12 +10,12 @@ metadata:
     app.kubernetes.io/version: 1.24.0
     helm.sh/chart: istio-egress-1.24.0
     install.operator.istio.io/owning-resource: unknown
-    istio: radoscis-egressgateway
+    istio: demo-egressgateway
     istio.io/rev: default
     operator.istio.io/component: EgressGateways
     release: istio
   name: istio-egressgateway-service-account
-  namespace: radoscis-egress
+  namespace: demo-egress
 
 ---
 apiVersion: apps/v1
@@ -30,17 +30,17 @@ metadata:
     app.kubernetes.io/version: 1.24.0
     helm.sh/chart: istio-egress-1.24.0
     install.operator.istio.io/owning-resource: unknown
-    istio: radoscis-egressgateway
+    istio: demo-egressgateway
     istio.io/rev: default
     operator.istio.io/component: EgressGateways
     release: istio
   name: istio-egressgateway
-  namespace: radoscis-egress
+  namespace: demo-egress
 spec:
   selector:
     matchLabels:
       app: istio-egressgateway
-      istio: radoscis-egressgateway
+      istio: demo-egressgateway
   strategy:
     rollingUpdate:
       maxSurge: 100%
@@ -62,7 +62,7 @@ spec:
         app.kubernetes.io/version: 1.24.0
         helm.sh/chart: istio-egress-1.24.0
         install.operator.istio.io/owning-resource: unknown
-        istio: radoscis-egressgateway
+        istio: demo-egressgateway
         istio.io/rev: default
         operator.istio.io/component: EgressGateways
         service.istio.io/canonical-name: istio-egressgateway
@@ -136,18 +136,18 @@ metadata:
     app.kubernetes.io/version: 1.24.0
     helm.sh/chart: istio-egress-1.24.0
     install.operator.istio.io/owning-resource: unknown
-    istio: radoscis-egressgateway
+    istio: demo-egressgateway
     istio.io/rev: default
     operator.istio.io/component: EgressGateways
     release: istio
   name: istio-egressgateway
-  namespace: radoscis-egress
+  namespace: demo-egress
 spec:
   minAvailable: 1
   selector:
     matchLabels:
       app: istio-egressgateway
-      istio: radoscis-egressgateway
+      istio: demo-egressgateway
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -165,7 +165,7 @@ metadata:
     operator.istio.io/component: EgressGateways
     release: istio
   name: istio-egressgateway-sds
-  namespace: radoscis-egress
+  namespace: demo-egress
 rules:
 - apiGroups:
   - ""
@@ -192,7 +192,7 @@ metadata:
     operator.istio.io/component: EgressGateways
     release: istio
   name: istio-egressgateway-sds
-  namespace: radoscis-egress
+  namespace: demo-egress
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -214,12 +214,12 @@ metadata:
     app.kubernetes.io/version: 1.24.0
     helm.sh/chart: istio-egress-1.24.0
     install.operator.istio.io/owning-resource: unknown
-    istio: radoscis-egressgateway
+    istio: demo-egressgateway
     istio.io/rev: default
     operator.istio.io/component: EgressGateways
     release: istio
   name: istio-egressgateway
-  namespace: radoscis-egress
+  namespace: demo-egress
 spec:
   maxReplicas: 5
   metrics:
@@ -249,12 +249,12 @@ metadata:
     app.kubernetes.io/version: 1.24.0
     helm.sh/chart: istio-egress-1.24.0
     install.operator.istio.io/owning-resource: unknown
-    istio: radoscis-egressgateway
+    istio: demo-egressgateway
     istio.io/rev: default
     operator.istio.io/component: EgressGateways
     release: istio
   name: istio-egressgateway
-  namespace: radoscis-egress
+  namespace: demo-egress
 spec:
   ports:
   - name: http2
@@ -267,7 +267,7 @@ spec:
     targetPort: 8443
   selector:
     app: istio-egressgateway
-    istio: radoscis-egressgateway
+    istio: demo-egressgateway
   type: ClusterIP
 
 ---
