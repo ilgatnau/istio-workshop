@@ -1,0 +1,9 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: IstioGatewayOnlyAllowedHosts
+metadata:
+  name: isito-gateway-only-allowed-hosts
+spec:
+  match:
+    kinds:
+      - apiGroups: ["networking.istio.io"]
+        kinds: ["Gateway"]

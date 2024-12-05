@@ -1,0 +1,37 @@
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: istiogatewayonlyallowedhosts
+  annotations:    
+spec:
+  crd:
+    spec:
+      names:
+        kind: IstioGatewayOnlyAllowedHosts
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package istiogatewayonlyallowedhosts
+
+        violation[{"msg": msg}] {
+          namespace := data.inventory.cluster["v1"]["Namespace"][input.review.object.metadata.namespace]
+          hosts_allowed := get_allowed_hosts(namespace)                              
+          some i,j
+            not is_allowed_host(input.review.object.spec.servers[i].hosts[j], hosts_allowed)
+            msg := sprintf("Gateway references host \"%s\" that is not in a list of allowed hosts %v", [input.review.object.spec.servers[i].hosts[j],hosts_allowed])                              
+        }
+
+
+        is_allowed_host(host, hosts_allowed) = true {
+          hosts_allowed[_] == host
+        }
+
+        is_allowed_host(host, hosts_allowed) = true {
+          endswith(host,concat("",[".",input.review.object.metadata.namespace]))
+        }
+
+        get_allowed_hosts(namespace) = hosts_allowed {          
+          hosts_annotation := namespace.metadata.annotations["hosts"]
+          hosts_annotation_json := json.unmarshal(hosts_annotation)
+          hosts_allowed := hosts_annotation_json["allowed"]
+        }
