@@ -19,4 +19,11 @@ tests:
     - tests/inventory_namespace.yaml
     assertions:
     - violations: yes
+  - name: namespace-annotation-violation-exists
+    object: tests/no_violation.yaml
+    inventory:
+    - tests/inventory_namespace_violation.yaml
+    assertions:
+    - violations: yes 
+
   
