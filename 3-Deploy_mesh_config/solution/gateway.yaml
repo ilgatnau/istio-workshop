@@ -2,11 +2,11 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name: ingress-gateway
-  namespace: radoscis
+  namespace: demo
 spec:
   selector:
     app: istio-ingressgateway
-    istio: ingressgateway
+    istio: demo-ingressgateway
   servers:  
   - port:
        number: 80
@@ -15,7 +15,7 @@ spec:
     hosts:
     - "http.test.com"
   - port:
-       number: 31400
+       number: 9090
        name: tcp
        protocol: TCP
     hosts:

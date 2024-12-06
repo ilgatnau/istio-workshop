@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       app: istio-egressgateway
-      istio: egressgateway
+      istio: demo-egressgateway
   action: ALLOW
   rules:
   - when:
