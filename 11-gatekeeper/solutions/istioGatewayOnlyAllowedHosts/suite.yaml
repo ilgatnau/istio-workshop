@@ -1,0 +1,29 @@
+kind: Suite
+apiVersion: test.gatekeeper.sh/v1alpha1
+metadata:
+  name: allowonlyannotatedhostsforgateways
+tests:
+- name: hosts-validation-for-ingressgateway
+  template: constraint-template.yaml
+  constraint: constraint.yaml
+  cases:
+  - name: no-violation
+    object: tests/no_violation.yaml
+    inventory:
+    - tests/inventory_namespace.yaml
+    assertions:
+    - violations: no
+  - name: violation-exists
+    object: tests/violation.yaml
+    inventory:
+    - tests/inventory_namespace.yaml
+    assertions:
+    - violations: yes
+  - name: namespace-annotation-violation-exists
+    object: tests/no_violation.yaml
+    inventory:
+    - tests/inventory_namespace_violation.yaml
+    assertions:
+    - violations: yes 
+
+  

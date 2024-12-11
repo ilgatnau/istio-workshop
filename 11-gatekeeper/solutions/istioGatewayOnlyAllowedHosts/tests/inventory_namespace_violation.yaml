@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    hosts: |
+      {
+        "notallowed": [
+        "http.test.com",
+        "tcp.test.com"
+        ]
+      }  
+  labels:
+    istio.io/rev: default
+    kubernetes.io/metadata.name: demo
+  name: demo  

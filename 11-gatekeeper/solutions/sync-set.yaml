@@ -1,0 +1,9 @@
+apiVersion: syncset.gatekeeper.sh/v1alpha1
+kind: SyncSet
+metadata:
+  name: syncset-ns
+spec:
+  gvks:
+    - group: ""
+      version: "v1"
+      kind: "Namespace"    

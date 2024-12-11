@@ -47,6 +47,13 @@ echo 'alias k=kubectl' >> ~/.bashrc
 echo 'source <(kubectl completion bash)' >> ~/.bashrc
 echo 'complete -o default -F __start_kubectl k' >> ~/.bashrc
 source ~/.bashrc 
+
+# Install helm
+cd ~/install
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
 ```
 
 Install Minikube
