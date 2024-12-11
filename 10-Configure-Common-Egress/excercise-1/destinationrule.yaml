@@ -9,6 +9,6 @@ spec:
   host: istio-egressgateway.demo-egress.svc.cluster.local
   trafficPolicy:
     tls:
-      mode: DISABLE
+      mode: ISTIO_MUTUAL
   subsets:
   - name: googleapis-passthrough
