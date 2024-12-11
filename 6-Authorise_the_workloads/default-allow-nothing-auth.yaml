@@ -3,4 +3,5 @@ kind: AuthorizationPolicy
 metadata:
   name: allow-nothing
   namespace: istio-system
-spec: {}
+spec: 
+  {}

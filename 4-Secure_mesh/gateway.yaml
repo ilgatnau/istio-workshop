@@ -2,16 +2,12 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name: ingress-gateway
+  namespace: demo
 spec:
   selector:
-    istio: ingressgateway
-  servers:
-  - port:
-      number: 31400
-      name: tcp
-      protocol: TCP
-    hosts:
-    - "tcp.test.com"
+    app: istio-ingressgateway
+    istio: demo-ingressgateway
+  servers:  
   - port:
        number: 80
        name: http
@@ -19,11 +15,17 @@ spec:
     hosts:
     - "http.test.com"
   - port:
+       number: 9090
+       name: tcp
+       protocol: TCP
+    hosts:
+    - "tcp.test.com"
+  - port:
        number: 443
        name: https
-       protocol: HTTP
+       protocol: HTTPS
     hosts:
     - "http.test.com"
     tls:
       mode: SIMPLE
-      credentialName: certifcates
+      credentialName: certificates
