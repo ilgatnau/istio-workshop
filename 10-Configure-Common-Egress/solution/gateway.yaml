@@ -9,7 +9,7 @@ spec:
     istio: demo-egressgateway
   servers:
   - port:
-      number: 8443 # Container port Number !!!!
+      number: 443 
       name: tls
       protocol: TLS
     hosts:
