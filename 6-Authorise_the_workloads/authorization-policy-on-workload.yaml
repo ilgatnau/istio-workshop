@@ -8,6 +8,41 @@ spec:
   selector:
     matchLabels:
       app: httpbin    
+  action: DENY
+  rules:
+  - from:
+    - source:
+        notRequestPrincipals: ["*"]
+    to:
+    - operation:
+        paths: ["/headers"]
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-tcp-port
+  namespace: demo
+spec:
+  selector:
+    matchLabels:
+      app: tcp-echo      
+  action: ALLOW
+  rules:
+  - to:
+    - operation:
+        ports: ["9000"]  
+    
+    
+    # lack of authorization on Gatway !
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: jwt-require-valid-token
+  namespace: demo
+spec:
+  selector:
+    matchLabels:
+      app: httpbin    
   action: DENY 
   rules:
   - from:
