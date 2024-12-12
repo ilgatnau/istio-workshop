@@ -52,8 +52,6 @@ echo "Test Port $INGRESS_PORT" | nc $INGRESS_HOST $TCP_INGRESS_PORT
 curl telnet://${INGRESS_HOST}:${TCP_INGRESS_PORT} <<< "Request for 9090"
 ```
 
-Did the conneciton succeed ? Look at applied authorizaiton-policy introduce fixes
-
 
 Let's play with httpbin pod
 
@@ -69,8 +67,9 @@ TOKEN=$(curl https://raw.githubusercontent.com/istio/istio/release-1.24/security
 curl -sS -v -k --header "Authorization: Bearer $TOKEN"  --resolve ${HOST_NAME}:${SECURE_INGRESS_PORT}:${INGRESS_HOST} https://${HOST_NAME}/headers
 
 # Try with inproper TOKEN - observe output complaining on JWT token "Jwt is not in the form of Header.Payload.Signature with two dots and 3 section"
+# Is it the same RBAC denied as we saw earlier ?
 curl -sS -v -k --header "Authorization: Bearer deadbeef"  --resolve ${HOST_NAME}:${SECURE_INGRESS_PORT}:${INGRESS_HOST} https://${HOST_NAME}/headers
-# How do U interpret this fail message ? Is it authorizatoinpolicy that denied the request or maybe another component that U know ?
+# How do U interpret this fail message ? Is it authorizatoinpolicy that denied the request or maybe another component that U already know ?
 ```
 
 
@@ -84,7 +83,7 @@ Fix errors on Ingress and app Pods
 curl -sS -v -k --header "Authorization: Bearer $TOKEN"  --resolve ${HOST_NAME}:${SECURE_INGRESS_PORT}:${INGRESS_HOST} https://${HOST_NAME}/headers
 curl telnet://${INGRESS_HOST}:${TCP_INGRESS_PORT} <<< "Request for 9090"
 
-# As we have allow nothing policy , U must add authorizaiton in Ingress Gateway
+# As we have applied allow nothing policy , U must add authorizaiton in Ingress Gateway
 kubectl apply -f authorization-policy-ingress.yaml 
 
 # Test both connections
