@@ -27,7 +27,7 @@ spec:
   - match:
     - gateways:
       - google-apis-gw
-      port: 8443
+      port: 443 
       sniHosts:
       - "*.googleapis.com"
     route:
