@@ -8,14 +8,14 @@ spec:
   selector:
     matchLabels:
       app: httpbin    
-  action: DENY
+  action: DENY 
   rules:
   - from:
     - source:
-        notRequestPrincipals: ["*"]
+        notRequestPrincipals: ["*"] 
     to:
     - operation:
-        paths: ["/headers"]
+        paths: ["/headers"]  
 ---
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
