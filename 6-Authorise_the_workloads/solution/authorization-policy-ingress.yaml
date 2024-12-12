@@ -1,0 +1,18 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: ingress-allow-access
+  namespace: demo-ingress
+spec:
+  selector:
+    matchLabels:
+      app: istio-ingressgateway
+      istio: demo-ingressgateway
+  action: ALLOW
+  rules:  
+  - to:
+    - operation:
+        paths: ["/*"]
+  - to:
+    - operation:
+        ports: ["9090"]

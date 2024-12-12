@@ -1,3 +1,4 @@
+# lack of authorization on Gatway !
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
@@ -6,30 +7,32 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: httpbin      
-  action: DENY
+      app: httpbin    
+  action: ALLOW
   rules:
   - from:
     - source:
-        notRequestPrincipals: ["*"]
+        requestPrincipals: ["*"]  # requestPrincipals
     to:
     - operation:
         paths: ["/headers"]
+  - to:
+    - operation:
+        ports: ["9000"]
 ---
+# lack of authorization on Gatway !
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
-  name: allow-tcp-port
+  name: tcp-echo-port
   namespace: demo
 spec:
   selector:
     matchLabels:
-      app: tcp-echo      
+      app: tcp-echo
   action: ALLOW
-  rules:
+  rules:  
   - to:
     - operation:
-        ports: ["9000"]  
-    
-    
-    
+        ports: ["9000"]
+
